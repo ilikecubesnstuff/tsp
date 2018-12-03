@@ -33,6 +33,9 @@ class Graph:
     def path_length(self, path):
         return sum(self.d_matrix[path[i]][path[i + 1]] for i in range(-1, len(path) - 1))
 
+    def edge_length(self, vertex1, vertex2):
+        return self.d_matrix[vertex1][vertex2]
+
     # Display methods
 
     def display_refresh(self):
@@ -57,6 +60,7 @@ _inst = Graph()
 generate_random_graph = _inst.generate_random_graph
 size = _inst.size
 path_length = _inst.path_length
+edge_length = _inst.edge_length
 # Display methods
 display_refresh = _inst.display_refresh
 display_path = _inst.display_path
