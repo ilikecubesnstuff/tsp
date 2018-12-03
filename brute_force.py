@@ -1,6 +1,6 @@
+import sys
 from itertools import permutations
 import graph
-import time
 
 def brute_force(display=False):
 
@@ -17,7 +17,6 @@ def brute_force(display=False):
         # measures length
         path = list(path) + [n - 1]
         length = graph.path_length(path)
-        # print(path, length)
 
         # check / replace
         if length < best_path_length:
@@ -25,19 +24,26 @@ def brute_force(display=False):
             best_path_length = length
 
         # display
+        if display:
+            graph.display_refresh()
+            graph.display_path(best_path, (0,255,0))
+            graph.display_path(path, (255,255,255))
+            graph.display_update()
+
+    if display:
         graph.display_refresh()
         graph.display_path(best_path, (0,255,0))
-        graph.display_path(path, (255,255,255))
         graph.display_update()
-        # time.sleep(2)
-
-    graph.display_refresh()
-    graph.display_path(best_path, (0,255,0))
-    graph.display_update()
-    return best_path
+    return best_path, best_path_length
 
 if __name__ == "__main__":
-    graph.generate_random_graph(9, display=True, seed=3198)
-    p = brute_force(display=True)
-    print(p, graph.path_length(p))
-    graph.display_stick()
+    try:
+        n = int(sys.argv[1])
+    except:
+        n = 9
+    try:
+        graph.generate_random_graph(n, display=True, seed=int(sys.argv[2]))
+    except:
+        graph.generate_random_graph(n, display=True)
+    path, length = brute_force(display=True)
+    print(path, length)

@@ -1,4 +1,5 @@
 # Imports
+import sys
 import os
 from random import seed, random
 from math import sqrt
@@ -64,3 +65,16 @@ display_stick = _inst.display_stick
 
 if hasattr(os, "fork"):
     os.register_at_fork(after_in_child = _inst.start)
+
+if __name__ == "__main__":
+    try:
+        g = Graph()
+        try:
+            g.generate_random_graph(int(sys.argv[1]), display=True, seed=int(sys.argv[2]))
+        except:
+            g.generate_random_graph(int(sys.argv[1]), display=True)
+        g.display_refresh()
+        g.display_update()
+        g.display_stick()
+    except IndexError:
+        raise IndexError("No system arguments given when running program. Format: graph.py <size> <seed (optional)>")
