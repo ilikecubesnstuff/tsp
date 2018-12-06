@@ -56,11 +56,13 @@ class Graph:
                     exit()
 
 _inst = Graph()
+
 # Graph methods
 generate_random_graph = _inst.generate_random_graph
 size = _inst.size
 path_length = _inst.path_length
 edge_length = _inst.edge_length
+
 # Display methods
 display_refresh = _inst.display_refresh
 display_path = _inst.display_path
