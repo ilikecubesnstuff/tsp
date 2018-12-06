@@ -68,7 +68,7 @@ def edgefunc(n, k, num, shift = 0):
         return [edge] + edgefunc(n - edge - 3, k - 1, new_num, shift = shift + edge + 2)
     return [shift + edge] + edgefunc(n - edge - 2, k - 1, new_num, shift = shift + edge + 2)
 
-def k_opt(k_in, display=False):
+def k_edge_opt(k_in, display=False):
 
     n = graph.size()
     global k
@@ -108,7 +108,7 @@ if __name__ == "__main__":
     try:
         graph.generate_random_graph(n, display=True, seed=int(sys.argv[2]))
     except:
-        graph.generate_random_graph(n, display=True, seed=123)
-    path, length = k_opt(2, display=True)
+        graph.generate_random_graph(n, display=True)
+    path, length = k_edge_opt(2, display=True)
     print(path, length)
     graph.display_stick()
