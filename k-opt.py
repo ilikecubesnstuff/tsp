@@ -1,4 +1,5 @@
 import sys
+from itertools import permutations
 from math import factorial
 import random
 import graph
@@ -20,15 +21,15 @@ def shortest(best, shortest, paths, display=False):
             path_list = [path[i][::r[i]] for i in range(len(path))]
             current = start + [subpath for path in path_list for subpath in path]
 
-            # if display:
-            #     graph.display_refresh()
-            #     graph.display_path(best, (0, 255, 0))
-            #     graph.display_path(current, (255, 255, 255))
-            #     graph.display_path([start[0], path[-1][-1]], (0, 0, 255))
-            #     graph.display_path([start[-1], path[0][0]], (0, 0, 255))
-            #     for i in range(len(path)-1):
-            #         graph.display_path([path[i][-1], path[i+1][0]], (0, 0, 255))
-            #     graph.display_update()
+            if display:
+                graph.display_refresh()
+                graph.display_path(best, (0, 255, 0))
+                graph.display_path(current, (255, 255, 255))
+                graph.display_path([start[0], path[-1][-1]], (0, 0, 255))
+                graph.display_path([start[-1], path[0][0]], (0, 0, 255))
+                for i in range(len(path)-1):
+                    graph.display_path([path[i][-1], path[i+1][0]], (0, 0, 255))
+                graph.display_update()
 
             if graph.path_length(current) < shortest:
                 best = current
@@ -74,7 +75,7 @@ def k_opt(k_in, display=False):
     k = k_in
     best_path = []
     best_path_length = n
-    current_best = random.sample([i for i in range(n)])
+    current_best = random.sample([i for i in range(n)], n)
 
     while best_path != current_best:
         best_path = current_best
