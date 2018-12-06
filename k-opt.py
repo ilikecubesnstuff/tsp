@@ -1,6 +1,6 @@
 import sys
-from itertools import permutations, cycle
 from math import factorial
+import random
 import graph
 
 k = 0
@@ -74,7 +74,7 @@ def k_opt(k_in, display=False):
     k = k_in
     best_path = []
     best_path_length = n
-    current_best = [i for i in range(n)]
+    current_best = random.sample([i for i in range(n)])
 
     while best_path != current_best:
         best_path = current_best
@@ -103,11 +103,11 @@ if __name__ == "__main__":
     try:
         n = int(sys.argv[1])
     except:
-        n = 100
+        n = 30
     try:
         graph.generate_random_graph(n, display=True, seed=int(sys.argv[2]))
     except:
-        graph.generate_random_graph(n, display=True)
+        graph.generate_random_graph(n, display=True, seed=123)
     path, length = k_opt(2, display=True)
     print(path, length)
     graph.display_stick()
