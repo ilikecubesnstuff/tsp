@@ -61,8 +61,8 @@ def point_opt(k_in, display=False):
             graph.display_update()
             print(current_best, best_path_length)
 
-        path_length_history.append(current_best)
-    return best_path, best_path_length
+        path_length_history.append(best_path_length)
+    return best_path, path_length_history
 
 if __name__ == "__main__":
     try:
