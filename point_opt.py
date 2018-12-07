@@ -36,7 +36,7 @@ def choose(n, k, num, shift = 0):
         edge += 1
     return [shift + edge] + choose(n - edge - 1, k - 1, num, shift = shift + edge + 1)
 
-def k_point_opt(k_in, display=False):
+def point_opt(k_in, display=False):
 
     n = graph.size()
     global k
@@ -44,6 +44,8 @@ def k_point_opt(k_in, display=False):
     best_path = []
     best_path_length = n
     current_best = [i for i in range(n)]
+    path_length_history = []
+
     while best_path != current_best:
         best_path = current_best
         for i in range(ncr(n, k)):
@@ -58,17 +60,21 @@ def k_point_opt(k_in, display=False):
             graph.display_path(current_best, (0, 0, 255))
             graph.display_update()
             print(current_best, best_path_length)
+
+        path_length_history.append(current_best)
     return best_path, best_path_length
 
 if __name__ == "__main__":
     try:
         n = int(sys.argv[1])
+        k = int(sys.argv[2])
     except:
         n = 50
+        k = 2
     try:
-        graph.generate_random_graph(n, display=True, seed=int(sys.argv[2]))
+        graph.generate_random_graph(n, display=True, seed=int(sys.argv[3]))
     except:
         graph.generate_random_graph(n, display=True)
-    path, length = k_point_opt(2, display=True)
+    path, length = point_opt(2, display=True)
     print(path, length)
     graph.display_stick()

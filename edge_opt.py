@@ -68,7 +68,7 @@ def edgefunc(n, k, num, shift = 0):
         return [edge] + edgefunc(n - edge - 3, k - 1, new_num, shift = shift + edge + 2)
     return [shift + edge] + edgefunc(n - edge - 2, k - 1, new_num, shift = shift + edge + 2)
 
-def k_edge_opt(k_in, display=False):
+def edge_opt(k_in, display=False):
 
     n = graph.size()
     global k
@@ -76,6 +76,7 @@ def k_edge_opt(k_in, display=False):
     best_path = []
     best_path_length = n
     current_best = random.sample([i for i in range(n)], n)
+    path_length_history = []
 
     while best_path != current_best:
         best_path = current_best
@@ -98,17 +99,21 @@ def k_edge_opt(k_in, display=False):
             graph.display_path(best_path, (0,255,0))
             graph.display_update()
             print(current_best, best_path_length)
-    return best_path, best_path_length
+
+        path_length_history.append(best_path_length)
+    return best_path, path_length_history
 
 if __name__ == "__main__":
     try:
         n = int(sys.argv[1])
+        n = int(sys.argv[2])
     except:
         n = 30
+        k = 2
     try:
-        graph.generate_random_graph(n, display=True, seed=int(sys.argv[2]))
+        graph.generate_random_graph(n, display=True, seed=int(sys.argv[3]))
     except:
         graph.generate_random_graph(n, display=True)
-    path, length = k_edge_opt(2, display=True)
+    path, length = edge_opt(k, display=True)
     print(path, length)
     graph.display_stick()
